@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using WpfUI.Models;
 
@@ -11,30 +8,75 @@ namespace WpfUI
 {
     internal static class EventReader
     {
+        internal static string DateFormat = "dd-MM-yyyy";
+        internal static CultureInfo CultureInfo = CultureInfo.InvariantCulture;
+
+        internal static string FILE_DOES_NOT_EXIST_EXCEPTION_MESSAGE = "XML file with Event data doesn't exists!";
+        internal static string FILE_DOES_NOT_CONTAIN_VALID_DATA_EXCEPTION_MESSAGE = "XML file does not contain valid Event data!";
+
         internal static IEvent Read(string filePath)
         {
-            if (!File.Exists(filePath)) { throw new FileNotFoundException("XML file with Event data doesn't exists"); }
+            if (!File.Exists(filePath)) { throw new FileNotFoundException(FILE_DOES_NOT_EXIST_EXCEPTION_MESSAGE); }
             else
             {
-                FileStream stream = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                StreamReader reader = new StreamReader(stream);
-                string content = reader.ReadToEnd();
-                reader.Dispose();
-                stream.Dispose();
-                return Convert(content);
+                return Convert(GetXmlContentString(filePath));
             }
         }
 
-        private static IEvent Convert(string fileContent)
+        private static IEvent Convert(string xmlContent)
+        {
+            XmlNode node = GetDaysNode(xmlContent);
+            return GetEventFromNode(node);
+
+        }
+
+        private static string GetXmlContentString(string filePath)
+        {
+            FileStream stream = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            StreamReader reader = new StreamReader(stream);
+            string content = reader.ReadToEnd();
+            reader.Dispose();
+            stream.Dispose();
+            return content;
+        }
+
+        private static XmlNode GetDaysNode(string xmlContent)
         {
             XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.LoadXml(fileContent);
+            xmlDoc.LoadXml(xmlContent);
             XmlNodeList nodeList = xmlDoc.SelectNodes("Days");
-            XmlNode node = nodeList[0];
-            try
+            if (nodeList.Count > 0)
             {
-                IEvent result = new Event();
-                int day = DateTime.Now.Day, month = DateTime.Now.Month, year = DateTime.Now.Year;
+                return nodeList[0];
+            }
+            else { throw new FileFormatException(FILE_DOES_NOT_CONTAIN_VALID_DATA_EXCEPTION_MESSAGE); }
+
+        }
+
+        private static bool IsNodeValid(XmlNode node)
+        {
+            bool hasEvent = false;
+            bool hasDate = false;
+
+            foreach (XmlNode setting in node.ChildNodes)
+            {
+                if (setting.NodeType != XmlNodeType.Comment)
+                {
+                    if (setting.Name == "Event") { hasEvent = true; }
+                    if (setting.Name == "Date")
+                    {
+                        hasDate = DateTime.TryParseExact(setting.InnerText, DateFormat, CultureInfo, DateTimeStyles.None, out _);
+                    }
+                }
+            }
+            return hasEvent && hasDate;
+        }
+
+        private static IEvent GetEventFromNode(XmlNode node)
+        {
+            IEvent daysEvent = new Event();
+            if (IsNodeValid(node))
+            {
                 foreach (XmlNode setting in node.ChildNodes)
                 {
                     if (setting.NodeType != XmlNodeType.Comment)
@@ -42,19 +84,19 @@ namespace WpfUI
                         switch (setting.Name)
                         {
                             case "Event":
-                                result.EventName = setting.InnerText;
+                                daysEvent.EventName = setting.InnerText;
                                 break;
                             case "Date":
-                                result.EventDate = DateTime.ParseExact(setting.InnerText, "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                                daysEvent.EventDate = DateTime.ParseExact(setting.InnerText, DateFormat, CultureInfo);
                                 break;
                         }
                     }
                 }
-                return result;
+                return daysEvent;
             }
-            catch
+            else
             {
-                throw new FileFormatException("File format incorrect!");
+                throw new FileFormatException(FILE_DOES_NOT_CONTAIN_VALID_DATA_EXCEPTION_MESSAGE);
             }
         }
     }
