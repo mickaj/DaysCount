@@ -70,11 +70,38 @@ namespace WpfUI.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string cancelButton {
+            get {
+                return ResourceManager.GetString("cancelButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to day/days.
         /// </summary>
         public static string daysText {
             get {
                 return ResourceManager.GetString("daysText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date:.
+        /// </summary>
+        public static string eventDateLabel {
+            get {
+                return ResourceManager.GetString("eventDateLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name:.
+        /// </summary>
+        public static string eventNameLabel {
+            get {
+                return ResourceManager.GetString("eventNameLabel", resourceCulture);
             }
         }
         
@@ -111,6 +138,24 @@ namespace WpfUI.Views {
         public static string menuGoToWeb {
             get {
                 return ResourceManager.GetString("menuGoToWeb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string saveButton {
+            get {
+                return ResourceManager.GetString("saveButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Event setup.
+        /// </summary>
+        public static string setupTitleBar {
+            get {
+                return ResourceManager.GetString("setupTitleBar", resourceCulture);
             }
         }
         

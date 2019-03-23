@@ -120,8 +120,17 @@
   <data name="appTitleBar" xml:space="preserve">
     <value>Days Count</value>
   </data>
+  <data name="cancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="daysText" xml:space="preserve">
     <value>day/days</value>
+  </data>
+  <data name="eventDateLabel" xml:space="preserve">
+    <value>Date:</value>
+  </data>
+  <data name="eventNameLabel" xml:space="preserve">
+    <value>Name:</value>
   </data>
   <data name="inText" xml:space="preserve">
     <value>in</value>
@@ -134,6 +143,12 @@
   </data>
   <data name="menuGoToWeb" xml:space="preserve">
     <value>Website</value>
+  </data>
+  <data name="saveButton" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="setupTitleBar" xml:space="preserve">
+    <value>Event setup</value>
   </data>
   <data name="statusDateZero" xml:space="preserve">
     <value>Days counted to: </value>
