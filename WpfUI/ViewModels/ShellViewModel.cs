@@ -48,5 +48,11 @@ namespace WpfUI.ViewModels
         {
             System.Diagnostics.Process.Start("https://mkajzer.pl/");
         }
+
+        public void OpenSetup()
+        {
+            WindowManager wm = new WindowManager();
+            wm.ShowDialog(new SetupViewModel());
+        }
     }
 }

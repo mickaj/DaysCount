@@ -69,6 +69,7 @@
     <Compile Include="EventReader.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\IEvent.cs" />
+    <Compile Include="ViewModels\SetupViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="Views\SetupView.xaml.cs">
       <DependentUpon>SetupView.xaml</DependentUpon>
