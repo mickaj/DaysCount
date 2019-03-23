@@ -52,7 +52,7 @@ namespace WpfUI.ViewModels
         public void OpenSetup()
         {
             WindowManager wm = new WindowManager();
-            wm.ShowDialog(new SetupViewModel());
+            wm.ShowDialog(new SetupViewModel(Event));
         }
     }
 }

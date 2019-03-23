@@ -41,7 +41,7 @@
         <StatusBar Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="{x:Static local:TextFile.statusDateZero}" FontWeight="Bold"/>
-                <TextBlock Text="{Binding Event.EventDate, StringFormat=d}"/>
+                <TextBlock Text="{Binding Event.EventDate, StringFormat='{}{0:dd-MM-yyyy}'}"/>
             </StackPanel>
         </StatusBar>
     </Grid>
