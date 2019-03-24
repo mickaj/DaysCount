@@ -16,6 +16,7 @@ namespace WpfUI.ViewModels
     {
         private IWindowManager _windowManager;
         private ISetupViewModel _setupViewModel;
+        private IEventReader _eventReader;
 
         public string FilePath { get; private set; }
 
@@ -35,10 +36,11 @@ namespace WpfUI.ViewModels
             get => (Event.EventDate - DateTime.Now).Days + 1;
         }
 
-        public ShellViewModel(IWindowManager windowManager, ISetupViewModel setupViewModel)
+        public ShellViewModel(IWindowManager windowManager, ISetupViewModel setupViewModel, IEventReader eventReader)
         {
             _windowManager = windowManager;
             _setupViewModel = setupViewModel;
+            _eventReader = eventReader;
             FilePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\days.xml";
             LoadEvent();
             _setupViewModel.SetShellParent(this);
@@ -48,12 +50,12 @@ namespace WpfUI.ViewModels
         {
             try
             {
-                Event = EventReader.Read(FilePath);
+                Event = _eventReader.Read(FilePath);
             }
             catch
             {
                 MessageBox.Show(TextFile.loadErrorMessage, TextFile.loadErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
-                Event = EventReader.GetTodayEvent(TextFile.todayString);
+                Event = _eventReader.GetTodayEvent(TextFile.todayString);
             }
             NotifyOfPropertyChange(() => RemainingDays);
         }

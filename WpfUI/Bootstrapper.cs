@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using WpfUI.Models;
 using WpfUI.ViewModels;
 
 namespace WpfUI
@@ -41,7 +42,10 @@ namespace WpfUI
         protected override void Configure()
         {
             _container.Singleton<IWindowManager, WindowManager>();
- 
+            _container.Singleton<IEventReader, EventReader>();
+            _container.Singleton<IEventWriter, EventWriter>();
+
+            _container.PerRequest<IEvent, Event>();
             _container.PerRequest<IShellViewModel, ShellViewModel>();
             _container.PerRequest<ISetupViewModel, SetupViewModel>();
         }

@@ -10,6 +10,8 @@ namespace WpfUI.ViewModels
     public class SetupViewModel : Screen, ISetupViewModel
     {
         private IShellViewModel _shellParent;
+        private IEventWriter _eventWriter;
+        private IEvent _event;
 
         private string _eventNameEdits;
         public string EventNameEdits
@@ -33,6 +35,12 @@ namespace WpfUI.ViewModels
             }
         }
 
+        public SetupViewModel(IEventWriter eventWriter, IEvent @event)
+        {
+            _eventWriter = eventWriter;
+            _event = @event;
+        }
+
         public void SetShellParent(IShellViewModel parent)
         {
             _shellParent = parent;
@@ -51,7 +59,7 @@ namespace WpfUI.ViewModels
             {
                 _shellParent.Event.EventDate = EventDateEdits;
                 _shellParent.Event.EventName = EventNameEdits;
-                EventWriter.Save(_shellParent.Event, _shellParent.FilePath);
+                _eventWriter.Save(_shellParent.Event, _shellParent.FilePath);
             }
             catch
             {

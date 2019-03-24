@@ -6,15 +6,16 @@ using WpfUI.Models;
 
 namespace WpfUI
 {
-    internal static class EventReader
+    public class EventReader : EventHandlerBase, IEventReader
     {
-        internal static string DateFormat = "dd-MM-yyyy";
-        internal static CultureInfo CultureInfo = CultureInfo.InvariantCulture;
+        private IEvent _event;
 
-        internal static string FILE_DOES_NOT_EXIST_EXCEPTION_MESSAGE = "XML file with Event data doesn't exists!";
-        internal static string FILE_DOES_NOT_CONTAIN_VALID_DATA_EXCEPTION_MESSAGE = "XML file does not contain valid Event data!";
+        public EventReader(IEvent @event)
+        {
+            _event = @event;
+        }
 
-        internal static IEvent Read(string filePath)
+        public IEvent Read(string filePath)
         {
             if (!File.Exists(filePath)) { throw new FileNotFoundException(FILE_DOES_NOT_EXIST_EXCEPTION_MESSAGE); }
             else
@@ -23,14 +24,20 @@ namespace WpfUI
             }
         }
 
-        private static IEvent Convert(string xmlContent)
+        public IEvent GetTodayEvent(string todayString)
+        {
+            _event.EventName = todayString;
+            _event.EventDate = DateTime.Now;
+            return _event;
+        }
+
+        private IEvent Convert(string xmlContent)
         {
             XmlNode node = GetDaysNode(xmlContent);
             return GetEventFromNode(node);
-
         }
 
-        private static string GetXmlContentString(string filePath)
+        private string GetXmlContentString(string filePath)
         {
             FileStream stream = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             StreamReader reader = new StreamReader(stream);
@@ -40,7 +47,7 @@ namespace WpfUI
             return content;
         }
 
-        private static XmlNode GetDaysNode(string xmlContent)
+        private XmlNode GetDaysNode(string xmlContent)
         {
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.LoadXml(xmlContent);
@@ -50,10 +57,9 @@ namespace WpfUI
                 return nodeList[0];
             }
             else { throw new FileFormatException(FILE_DOES_NOT_CONTAIN_VALID_DATA_EXCEPTION_MESSAGE); }
-
         }
 
-        private static bool IsNodeValid(XmlNode node)
+        private bool IsNodeValid(XmlNode node)
         {
             bool hasEvent = false;
             bool hasDate = false;
@@ -72,9 +78,8 @@ namespace WpfUI
             return hasEvent && hasDate;
         }
 
-        private static IEvent GetEventFromNode(XmlNode node)
+        private IEvent GetEventFromNode(XmlNode node)
         {
-            IEvent daysEvent = new Event();
             if (IsNodeValid(node))
             {
                 foreach (XmlNode setting in node.ChildNodes)
@@ -84,25 +89,20 @@ namespace WpfUI
                         switch (setting.Name)
                         {
                             case "Event":
-                                daysEvent.EventName = setting.InnerText;
+                                _event.EventName = setting.InnerText;
                                 break;
                             case "Date":
-                                daysEvent.EventDate = DateTime.ParseExact(setting.InnerText, DateFormat, CultureInfo);
+                                _event.EventDate = DateTime.ParseExact(setting.InnerText, DateFormat, CultureInfo);
                                 break;
                         }
                     }
                 }
-                return daysEvent;
+                return _event;
             }
             else
             {
                 throw new FileFormatException(FILE_DOES_NOT_CONTAIN_VALID_DATA_EXCEPTION_MESSAGE);
             }
-        }
-
-        internal static IEvent GetTodayEvent(string todayString)
-        {
-            return new Event { EventName = todayString, EventDate=DateTime.Now };
         }
     }
 }

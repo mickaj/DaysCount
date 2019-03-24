@@ -66,8 +66,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="EventHandlerBase.cs" />
     <Compile Include="EventReader.cs" />
     <Compile Include="EventWriter.cs" />
+    <Compile Include="IEventReader.cs" />
+    <Compile Include="IEventWriter.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\IEvent.cs" />
     <Compile Include="ViewModels\ISetupViewModel.cs" />
