@@ -12,9 +12,10 @@ using WpfUI.Views;
 
 namespace WpfUI.ViewModels
 {
-    public class ShellViewModel : Screen
+    public class ShellViewModel : Screen, IShellViewModel
     {
         private IWindowManager _windowManager;
+        private ISetupViewModel _setupViewModel;
 
         public string FilePath { get; private set; }
 
@@ -34,11 +35,13 @@ namespace WpfUI.ViewModels
             get => (Event.EventDate - DateTime.Now).Days + 1;
         }
 
-        public ShellViewModel(IWindowManager windowManager)
+        public ShellViewModel(IWindowManager windowManager, ISetupViewModel setupViewModel)
         {
             _windowManager = windowManager;
+            _setupViewModel = setupViewModel;
             FilePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\days.xml";
             LoadEvent();
+            _setupViewModel.SetShellParent(this);
         }
 
         public void LoadEvent()
@@ -67,7 +70,7 @@ namespace WpfUI.ViewModels
 
         public void OpenSetup()
         {
-            _windowManager.ShowDialog(new SetupViewModel(Event, this));
+            _windowManager.ShowDialog(_setupViewModel);
         }
     }
 }

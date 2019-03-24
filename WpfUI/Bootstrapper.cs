@@ -20,7 +20,7 @@ namespace WpfUI
 
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
-            DisplayRootViewFor<ShellViewModel>();
+            DisplayRootViewFor<IShellViewModel>();
         }
 
         protected override object GetInstance(Type service, string key)
@@ -36,6 +36,14 @@ namespace WpfUI
         protected override void BuildUp(object instance)
         {
             _container.BuildUp(instance);
+        }
+
+        protected override void Configure()
+        {
+            _container.Singleton<IWindowManager, WindowManager>();
+ 
+            _container.PerRequest<IShellViewModel, ShellViewModel>();
+            _container.PerRequest<ISetupViewModel, SetupViewModel>();
         }
     }
 }

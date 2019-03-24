@@ -7,20 +7,9 @@ using WpfUI.Views;
 
 namespace WpfUI.ViewModels
 {
-    public class SetupViewModel : Screen
+    public class SetupViewModel : Screen, ISetupViewModel
     {
-        private ShellViewModel Parent;
-
-        private IEvent _event;
-        public IEvent Event
-        {
-            get => _event;
-            set
-            {
-                _event = value;
-                NotifyOfPropertyChange(() => Event);
-            }
-        }
+        private IShellViewModel _shellParent;
 
         private string _eventNameEdits;
         public string EventNameEdits
@@ -44,12 +33,11 @@ namespace WpfUI.ViewModels
             }
         }
 
-        public SetupViewModel(IEvent @event, ShellViewModel parent)
+        public void SetShellParent(IShellViewModel parent)
         {
-            Parent = parent;
-            Event = @event;
-            EventNameEdits = Event.EventName;
-            EventDateEdits = Event.EventDate;
+            _shellParent = parent;
+            EventNameEdits = _shellParent.Event.EventName;
+            EventDateEdits = _shellParent.Event.EventDate;
         }
 
         public void CancelEdits()
@@ -61,16 +49,16 @@ namespace WpfUI.ViewModels
         {
             try
             {
-                Event.EventDate = EventDateEdits;
-                Event.EventName = EventNameEdits;
-                EventWriter.Save(Event, Parent.FilePath);
+                _shellParent.Event.EventDate = EventDateEdits;
+                _shellParent.Event.EventName = EventNameEdits;
+                EventWriter.Save(_shellParent.Event, _shellParent.FilePath);
             }
             catch
             {
                 this.TryClose();
                 MessageBox.Show(TextFile.saveErrorMessage, TextFile.saveErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            Parent.LoadEvent();
+            _shellParent.LoadEvent();
             this.TryClose();
         }
     }
