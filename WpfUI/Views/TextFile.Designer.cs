@@ -115,6 +115,24 @@ namespace WpfUI.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to load XML file. Please set up a new event..
+        /// </summary>
+        public static string loadErrorMessage {
+            get {
+                return ResourceManager.GetString("loadErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File load error.
+        /// </summary>
+        public static string loadErrorTitle {
+            get {
+                return ResourceManager.GetString("loadErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to App.
         /// </summary>
         public static string menuApp {
@@ -151,6 +169,24 @@ namespace WpfUI.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to save XML file. Updates cancelled..
+        /// </summary>
+        public static string saveErrorMessage {
+            get {
+                return ResourceManager.GetString("saveErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File save error.
+        /// </summary>
+        public static string saveErrorTitle {
+            get {
+                return ResourceManager.GetString("saveErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Event setup.
         /// </summary>
         public static string setupTitleBar {
@@ -165,6 +201,15 @@ namespace WpfUI.Views {
         public static string statusDateZero {
             get {
                 return ResourceManager.GetString("statusDateZero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Today.
+        /// </summary>
+        public static string todayString {
+            get {
+                return ResourceManager.GetString("todayString", resourceCulture);
             }
         }
     }

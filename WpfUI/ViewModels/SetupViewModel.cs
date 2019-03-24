@@ -1,11 +1,9 @@
 ﻿using Caliburn.Micro;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using WpfUI.Models;
+using WpfUI.Views;
 
 namespace WpfUI.ViewModels
 {
@@ -61,10 +59,17 @@ namespace WpfUI.ViewModels
 
         public void SaveEdits()
         {
-            Event.EventDate = EventDateEdits;
-            Event.EventName = EventNameEdits;
-            string filePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\days.xml";
-            EventWriter.Save(Event, filePath);
+            try
+            {
+                Event.EventDate = EventDateEdits;
+                Event.EventName = EventNameEdits;
+                EventWriter.Save(Event, Parent.FilePath);
+            }
+            catch
+            {
+                this.TryClose();
+                MessageBox.Show(TextFile.saveErrorMessage, TextFile.saveErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             Parent.LoadEvent();
             this.TryClose();
         }

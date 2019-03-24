@@ -99,5 +99,10 @@ namespace WpfUI
                 throw new FileFormatException(FILE_DOES_NOT_CONTAIN_VALID_DATA_EXCEPTION_MESSAGE);
             }
         }
+
+        internal static IEvent GetTodayEvent(string todayString)
+        {
+            return new Event { EventName = todayString, EventDate=DateTime.Now };
+        }
     }
 }

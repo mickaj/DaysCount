@@ -8,11 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using WpfUI.Models;
+using WpfUI.Views;
 
 namespace WpfUI.ViewModels
 {
     public class ShellViewModel : Screen
     {
+        public string FilePath { get; private set; }
+
         private IEvent _event;
         public IEvent Event
         {
@@ -31,13 +34,21 @@ namespace WpfUI.ViewModels
 
         public ShellViewModel()
         {
+            FilePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\days.xml";
             LoadEvent();
         }
 
         public void LoadEvent()
         {
-            string filePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\days.xml";
-            Event = EventReader.Read(filePath);
+            try
+            {
+                Event = EventReader.Read(FilePath);
+            }
+            catch
+            {
+                MessageBox.Show(TextFile.loadErrorMessage, TextFile.loadErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                Event = EventReader.GetTodayEvent(TextFile.todayString);
+            }
             NotifyOfPropertyChange(() => RemainingDays);
         }
 
