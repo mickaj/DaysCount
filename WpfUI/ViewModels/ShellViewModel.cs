@@ -14,6 +14,8 @@ namespace WpfUI.ViewModels
 {
     public class ShellViewModel : Screen
     {
+        private IWindowManager _windowManager;
+
         public string FilePath { get; private set; }
 
         private IEvent _event;
@@ -32,8 +34,9 @@ namespace WpfUI.ViewModels
             get => (Event.EventDate - DateTime.Now).Days + 1;
         }
 
-        public ShellViewModel()
+        public ShellViewModel(IWindowManager windowManager)
         {
+            _windowManager = windowManager;
             FilePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\days.xml";
             LoadEvent();
         }
@@ -64,8 +67,7 @@ namespace WpfUI.ViewModels
 
         public void OpenSetup()
         {
-            WindowManager wm = new WindowManager();
-            wm.ShowDialog(new SetupViewModel(Event, this));
+            _windowManager.ShowDialog(new SetupViewModel(Event, this));
         }
     }
 }
