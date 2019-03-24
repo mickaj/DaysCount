@@ -24,6 +24,7 @@
             </Menu.ItemsPanel>
             <MenuItem Header="{x:Static local:TextFile.menuApp}" Grid.Column="0" FontWeight="Bold">
                 <MenuItem x:Name="OpenSetup" FontWeight="Bold" Header="{x:Static local:TextFile.setupTitleBar}"/>
+                <Separator/>
                 <MenuItem x:Name="Exit" FontWeight="Bold" Header="{x:Static local:TextFile.menuAppExit}"/>
             </MenuItem>
             <MenuItem x:Name="GoToWebsite" Header="{x:Static local:TextFile.menuGoToWeb}" FontWeight="Bold" HorizontalAlignment="Right"/>

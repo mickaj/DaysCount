@@ -39,7 +39,7 @@
         </DatePicker>
 
         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right">
-            <Button Content="{x:Static local:TextFile.saveButton}" Width="50" Height="25" Margin="5"/>
+            <Button Name="SaveEdits" Content="{x:Static local:TextFile.saveButton}" Width="50" Height="25" Margin="5"/>
             <Button Name="CancelEdits" Content="{x:Static local:TextFile.cancelButton}" Width="50" Height="25" Margin="5"/>
         </StackPanel>
     </Grid>

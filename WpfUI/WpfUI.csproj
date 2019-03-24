@@ -67,6 +67,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="EventReader.cs" />
+    <Compile Include="EventWriter.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\IEvent.cs" />
     <Compile Include="ViewModels\SetupViewModel.cs" />

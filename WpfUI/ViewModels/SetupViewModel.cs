@@ -1,6 +1,7 @@
 ﻿using Caliburn.Micro;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,8 @@ namespace WpfUI.ViewModels
 {
     public class SetupViewModel : Screen
     {
+        private ShellViewModel Parent;
+
         private IEvent _event;
         public IEvent Event
         {
@@ -43,8 +46,9 @@ namespace WpfUI.ViewModels
             }
         }
 
-        public SetupViewModel(IEvent @event)
+        public SetupViewModel(IEvent @event, ShellViewModel parent)
         {
+            Parent = parent;
             Event = @event;
             EventNameEdits = Event.EventName;
             EventDateEdits = Event.EventDate;
@@ -52,6 +56,16 @@ namespace WpfUI.ViewModels
 
         public void CancelEdits()
         {
+            this.TryClose();
+        }
+
+        public void SaveEdits()
+        {
+            Event.EventDate = EventDateEdits;
+            Event.EventName = EventNameEdits;
+            string filePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\days.xml";
+            EventWriter.Save(Event, filePath);
+            Parent.LoadEvent();
             this.TryClose();
         }
     }

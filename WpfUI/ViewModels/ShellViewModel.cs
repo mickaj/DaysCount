@@ -26,17 +26,19 @@ namespace WpfUI.ViewModels
 
         public int RemainingDays
         {
-            get
-            {
-                int result = (Event.EventDate - DateTime.Now).Days;
-                return result;
-            }
+            get => (Event.EventDate - DateTime.Now).Days + 1;
         }
 
         public ShellViewModel()
         {
+            LoadEvent();
+        }
+
+        public void LoadEvent()
+        {
             string filePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\days.xml";
             Event = EventReader.Read(filePath);
+            NotifyOfPropertyChange(() => RemainingDays);
         }
 
         public void Exit()
@@ -52,7 +54,7 @@ namespace WpfUI.ViewModels
         public void OpenSetup()
         {
             WindowManager wm = new WindowManager();
-            wm.ShowDialog(new SetupViewModel(Event));
+            wm.ShowDialog(new SetupViewModel(Event, this));
         }
     }
 }
