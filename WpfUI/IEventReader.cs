@@ -4,7 +4,7 @@ namespace WpfUI
 {
     public interface IEventReader
     {
-        IEvent Read(string filePath);
-        IEvent GetTodayEvent(string todayString);
+        Event Read(string filePath);
+        Event GetTodayEvent(string todayString);
     }
 }

@@ -7,11 +7,11 @@ using WpfUI.Views;
 
 namespace WpfUI.ViewModels
 {
-    public class SetupViewModel : Screen, ISetupViewModel
+    public class SetupViewModel : Screen
     {
-        private IShellViewModel _shellParent;
+        private ShellViewModel _shellParent;
         private IEventWriter _eventWriter;
-        private IEvent _event;
+        private Event _event;
 
         private string _eventNameEdits;
         public string EventNameEdits
@@ -35,13 +35,13 @@ namespace WpfUI.ViewModels
             }
         }
 
-        public SetupViewModel(IEventWriter eventWriter, IEvent @event)
+        public SetupViewModel(IEventWriter eventWriter, Event @event)
         {
             _eventWriter = eventWriter;
             _event = @event;
         }
 
-        public void SetShellParent(IShellViewModel parent)
+        public void SetShellParent(ShellViewModel parent)
         {
             _shellParent = parent;
             EventNameEdits = _shellParent.Event.EventName;

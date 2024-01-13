@@ -4,6 +4,6 @@ namespace WpfUI
 {
     public interface IEventWriter
     {
-        void Save(IEvent @event, string filePath);
+        void Save(Event @event, string filePath);
     }
 }

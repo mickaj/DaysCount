@@ -8,14 +8,14 @@ namespace WpfUI
 {
     public class EventReader : EventHandlerBase, IEventReader
     {
-        private IEvent _event;
+        private Event _event;
 
-        public EventReader(IEvent @event)
+        public EventReader(Event @event)
         {
             _event = @event;
         }
 
-        public IEvent Read(string filePath)
+        public Event Read(string filePath)
         {
             if (!File.Exists(filePath)) { throw new FileNotFoundException(FILE_DOES_NOT_EXIST_EXCEPTION_MESSAGE); }
             else
@@ -24,14 +24,14 @@ namespace WpfUI
             }
         }
 
-        public IEvent GetTodayEvent(string todayString)
+        public Event GetTodayEvent(string todayString)
         {
             _event.EventName = todayString;
             _event.EventDate = DateTime.Now;
             return _event;
         }
 
-        private IEvent Convert(string xmlContent)
+        private Event Convert(string xmlContent)
         {
             XmlNode node = GetDaysNode(xmlContent);
             return GetEventFromNode(node);
@@ -78,7 +78,7 @@ namespace WpfUI
             return hasEvent && hasDate;
         }
 
-        private IEvent GetEventFromNode(XmlNode node)
+        private Event GetEventFromNode(XmlNode node)
         {
             if (IsNodeValid(node))
             {

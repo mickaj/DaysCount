@@ -1,9 +1,6 @@
 ﻿using Caliburn.Micro;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using WpfUI.Models;
 using WpfUI.ViewModels;
@@ -21,7 +18,7 @@ namespace WpfUI
 
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
-            DisplayRootViewFor<IShellViewModel>();
+            DisplayRootViewFor<ShellViewModel>();
         }
 
         protected override object GetInstance(Type service, string key)
@@ -45,9 +42,9 @@ namespace WpfUI
             _container.Singleton<IEventReader, EventReader>();
             _container.Singleton<IEventWriter, EventWriter>();
 
-            _container.PerRequest<IEvent, Event>();
-            _container.PerRequest<IShellViewModel, ShellViewModel>();
-            _container.PerRequest<ISetupViewModel, SetupViewModel>();
+            _container.PerRequest<Event>();
+            _container.PerRequest<ShellViewModel, ShellViewModel>();
+            _container.PerRequest<SetupViewModel, SetupViewModel>();
         }
     }
 }

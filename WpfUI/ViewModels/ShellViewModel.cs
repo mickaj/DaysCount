@@ -1,27 +1,24 @@
 ﻿using Caliburn.Micro;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using WpfUI.Models;
 using WpfUI.Views;
 
 namespace WpfUI.ViewModels
 {
-    public class ShellViewModel : Screen, IShellViewModel
+    public class ShellViewModel : Screen
     {
         private IWindowManager _windowManager;
-        private ISetupViewModel _setupViewModel;
+        private SetupViewModel _setupViewModel;
         private IEventReader _eventReader;
 
         public string FilePath { get; private set; }
 
-        private IEvent _event;
-        public IEvent Event
+        private Event _event;
+
+        public Event Event
         {
             get => _event;
             set
@@ -36,7 +33,7 @@ namespace WpfUI.ViewModels
             get => (Event.EventDate - DateTime.Now).Days + 1;
         }
 
-        public ShellViewModel(IWindowManager windowManager, ISetupViewModel setupViewModel, IEventReader eventReader)
+        public ShellViewModel(IWindowManager windowManager, SetupViewModel setupViewModel, IEventReader eventReader)
         {
             _windowManager = windowManager;
             _setupViewModel = setupViewModel;
@@ -67,7 +64,7 @@ namespace WpfUI.ViewModels
 
         public void GoToWebsite()
         {
-            System.Diagnostics.Process.Start("https://mkajzer.pl/");
+            System.Diagnostics.Process.Start("https://github.com/mickaj/DaysCount");
         }
 
         public void OpenSetup()
