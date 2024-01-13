@@ -1,6 +1,5 @@
 ﻿using Caliburn.Micro;
 using System;
-using System.IO;
 using System.Windows;
 using WpfUI.Models;
 using WpfUI.Views;
@@ -10,8 +9,8 @@ namespace WpfUI.ViewModels
     public class SetupViewModel : Screen
     {
         private ShellViewModel _shellParent;
-        private IEventWriter _eventWriter;
-        private Event _event;
+        private readonly IEventWriter _eventWriter;
+        private readonly Event _event;
 
         private string _eventNameEdits;
         public string EventNameEdits
@@ -44,8 +43,8 @@ namespace WpfUI.ViewModels
         public void SetShellParent(ShellViewModel parent)
         {
             _shellParent = parent;
-            EventNameEdits = _shellParent.Event.EventName;
-            EventDateEdits = _shellParent.Event.EventDate;
+            EventNameEdits = _shellParent.TopEvent.EventName;
+            EventDateEdits = _shellParent.TopEvent.EventDate;
         }
 
         public void CancelEdits()
@@ -57,16 +56,16 @@ namespace WpfUI.ViewModels
         {
             try
             {
-                _shellParent.Event.EventDate = EventDateEdits;
-                _shellParent.Event.EventName = EventNameEdits;
-                _eventWriter.Save(_shellParent.Event, _shellParent.FilePath);
+                _shellParent.TopEvent.EventDate = EventDateEdits;
+                _shellParent.TopEvent.EventName = EventNameEdits;
+                _eventWriter.Save(_shellParent.TopEvent, _shellParent.FilePath);
             }
             catch
             {
                 this.TryClose();
                 MessageBox.Show(TextFile.saveErrorMessage, TextFile.saveErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            _shellParent.LoadEvent();
+            _shellParent.LoadEvents();
             this.TryClose();
         }
     }

@@ -1,8 +1,11 @@
 ﻿using Caliburn.Micro;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
+using WpfUI.Helpers;
 using WpfUI.Models;
 using WpfUI.Views;
 
@@ -10,27 +13,34 @@ namespace WpfUI.ViewModels
 {
     public class ShellViewModel : Screen
     {
-        private IWindowManager _windowManager;
-        private SetupViewModel _setupViewModel;
-        private IEventReader _eventReader;
+        private readonly IWindowManager _windowManager;
+        private readonly SetupViewModel _setupViewModel;
+        private readonly IEventReader _eventReader;
 
         public string FilePath { get; private set; }
 
-        private Event _event;
+        private List<Event> _events = new List<Event>();
 
-        public Event Event
+        public List<Event> Events 
         {
-            get => _event;
+            get => _events;
             set
             {
-                _event = value;
-                NotifyOfPropertyChange(() => Event);
+                _events = value;
+                NotifyOfPropertyChange(() => Events);
+                NotifyOfPropertyChange(() => TopEvent);
+                NotifyOfPropertyChange(() => RemainingDays);
             }
+        }
+
+        public Event TopEvent
+        {
+            get => _events.First();
         }
 
         public int RemainingDays
         {
-            get => (Event.EventDate - DateTime.Now).Days + 1;
+            get => (TopEvent.EventDate - DateTimeHelper.GetNowDateOnly()).Days;
         }
 
         public ShellViewModel(IWindowManager windowManager, SetupViewModel setupViewModel, IEventReader eventReader)
@@ -38,23 +48,22 @@ namespace WpfUI.ViewModels
             _windowManager = windowManager;
             _setupViewModel = setupViewModel;
             _eventReader = eventReader;
-            FilePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\days.xml";
-            LoadEvent();
+            FilePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\days.json";
+            LoadEvents();
             _setupViewModel.SetShellParent(this);
         }
 
-        public void LoadEvent()
+        public void LoadEvents()
         {
             try
             {
-                Event = _eventReader.Read(FilePath);
+                _events = _eventReader.Read(FilePath).OrderBy(e => e.EventDate).ToList();
             }
             catch
             {
                 MessageBox.Show(TextFile.loadErrorMessage, TextFile.loadErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
-                Event = _eventReader.GetTodayEvent(TextFile.todayString);
+                _events.Add(_eventReader.GetTodayEvent(TextFile.todayString));
             }
-            NotifyOfPropertyChange(() => RemainingDays);
         }
 
         public void Exit()
