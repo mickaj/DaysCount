@@ -30,18 +30,17 @@ namespace WpfUI.ViewModels
                 NotifyOfPropertyChange(() => Events);
                 NotifyOfPropertyChange(() => TopEvent);
                 NotifyOfPropertyChange(() => RemainingDays);
+                NotifyOfPropertyChange(() => MinorEventsStrings);
             }
         }
 
-        public Event TopEvent
-        {
-            get => _events.First();
-        }
+        public List<string> MinorEventsStrings => _events
+            .Select(e => $"{e.EventName} {TextFile.inText} {DateTimeHelper.GetRemainingDays(e.EventDate)} {TextFile.onText} {e.EventDate:dd-MM-yyyy}")
+            .ToList();
 
-        public int RemainingDays
-        {
-            get => (TopEvent.EventDate - DateTimeHelper.GetNowDateOnly()).Days;
-        }
+        public Event TopEvent => _events.First();
+
+        public int RemainingDays => DateTimeHelper.GetRemainingDays(TopEvent.EventDate);
 
         public ShellViewModel(IWindowManager windowManager, SetupViewModel setupViewModel, IEventReader eventReader)
         {

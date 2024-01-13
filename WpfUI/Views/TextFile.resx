@@ -136,7 +136,7 @@
     <value>in</value>
   </data>
   <data name="loadErrorMessage" xml:space="preserve">
-    <value>Unable to load XML file. Please set up a new event.</value>
+    <value>Unable to load JSON file. Please set up a new event.</value>
   </data>
   <data name="loadErrorTitle" xml:space="preserve">
     <value>File load error</value>
@@ -150,11 +150,14 @@
   <data name="menuGoToWeb" xml:space="preserve">
     <value>Website</value>
   </data>
+  <data name="onText" xml:space="preserve">
+    <value>on</value>
+  </data>
   <data name="saveButton" xml:space="preserve">
     <value>Save</value>
   </data>
   <data name="saveErrorMessage" xml:space="preserve">
-    <value>Unable to save XML file. Updates cancelled.</value>
+    <value>Unable to save JSON file. Updates cancelled.</value>
   </data>
   <data name="saveErrorTitle" xml:space="preserve">
     <value>File save error</value>

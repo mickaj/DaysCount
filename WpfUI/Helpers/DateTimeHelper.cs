@@ -9,5 +9,10 @@ namespace WpfUI.Helpers
             var now = DateTime.Now;
             return new DateTime(now.Year, now.Month, now.Day);
         }
+
+        public static int GetRemainingDays(DateTime eventDate)
+        {
+            return (eventDate - GetNowDateOnly()).Days;
+        }
     }
 }

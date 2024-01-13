@@ -12,8 +12,9 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*" />
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
@@ -40,11 +41,22 @@
 
         <TextBlock Grid.Row="3" Text="{x:Static local:TextFile.daysText}" HorizontalAlignment="Center" Margin="5" FontWeight="Bold" FontSize="18"/>
 
-        <StackPanel Grid.Row="4" HorizontalAlignment="Center" Orientation="Vertical">
-            
-        </StackPanel>
+        <ItemsControl Grid.Row="4" HorizontalAlignment="Center" ItemsSource="{Binding Events}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding EventName}" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
 
-        <StatusBar Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
+        <TextBlock Grid.Row="5" />
+
+        <StatusBar Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Height="25" MinHeight="25" MaxHeight="25">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="{x:Static local:TextFile.statusDateZero}" FontWeight="Bold"/>
                 <TextBlock Text="{Binding TopEvent.EventDate, StringFormat='{}{0:dd-MM-yyyy}'}"/>

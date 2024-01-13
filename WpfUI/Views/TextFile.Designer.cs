@@ -115,7 +115,7 @@ namespace WpfUI.Views {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to load XML file. Please set up a new event..
+        ///   Looks up a localized string similar to Unable to load JSON file. Please set up a new event..
         /// </summary>
         public static string loadErrorMessage {
             get {
@@ -160,6 +160,15 @@ namespace WpfUI.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to on.
+        /// </summary>
+        public static string onText {
+            get {
+                return ResourceManager.GetString("onText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string saveButton {
@@ -169,7 +178,7 @@ namespace WpfUI.Views {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to save XML file. Updates cancelled..
+        ///   Looks up a localized string similar to Unable to save JSON file. Updates cancelled..
         /// </summary>
         public static string saveErrorMessage {
             get {
