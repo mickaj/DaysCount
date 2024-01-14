@@ -9,7 +9,6 @@ namespace WpfUI.ViewModels
     {
         private ShellViewModel _shellParent;
         private readonly IEventWriter _eventWriter;
-        private readonly IEventReader _eventReader;
 
         private string _jsonEdits;
 
@@ -23,10 +22,9 @@ namespace WpfUI.ViewModels
             }
         }
 
-        public SetupViewModel(IEventWriter eventWriter, IEventReader eventReader)
+        public SetupViewModel(IEventWriter eventWriter)
         {
             _eventWriter = eventWriter;
-            _eventReader = eventReader;
         }
 
         public void SetShellParent(ShellViewModel parent)
@@ -41,6 +39,13 @@ namespace WpfUI.ViewModels
 
         public void SaveEdits()
         {
+            var isValid = _eventWriter.Validate(_jsonEdits);
+            if (isValid == false)
+            {
+                MessageBox.Show(TextFile.validateErrorMessage, TextFile.validateErrorTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             try
             {
                 _eventWriter.Save(_jsonEdits, _shellParent.FilePath);

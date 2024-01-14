@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using Newtonsoft.Json;
+using System.IO;
 
 namespace WpfUI
 {
@@ -8,6 +9,19 @@ namespace WpfUI
         {
             if (File.Exists(filePath)) { File.Delete(filePath); }
             File.WriteAllText(filePath, jsonContent);
+        }
+
+        public bool Validate(string jsonContent)
+        {
+            try
+            {
+                JsonConvert.DeserializeObject(jsonContent);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

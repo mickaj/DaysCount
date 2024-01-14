@@ -183,4 +183,10 @@
   <data name="todayString" xml:space="preserve">
     <value>Today</value>
   </data>
+  <data name="validateErrorMessage" xml:space="preserve">
+    <value>Edited JSON is invalid. Please fix the error or cancel edits.</value>
+  </data>
+  <data name="validateErrorTitle" xml:space="preserve">
+    <value>Invalid JSON</value>
+  </data>
 </root>

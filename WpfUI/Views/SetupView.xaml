@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Text="{x:Static local:TextFile.editJsonLabel}" Margin="5" FontWeight="Bold" FontSize="18"/>
-        <TextBox Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding JsonEdits}" HorizontalAlignment="Stretch" Height="200"/>
+        <TextBox Grid.Row="1" TextWrapping="Wrap" AcceptsTab="True" AcceptsReturn="True" Text="{Binding JsonEdits}" HorizontalAlignment="Stretch" Height="200" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"/>
         
 
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right">

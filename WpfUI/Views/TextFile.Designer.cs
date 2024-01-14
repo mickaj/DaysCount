@@ -257,5 +257,23 @@ namespace WpfUI.Views {
                 return ResourceManager.GetString("todayString", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edited JSON is invalid. Please fix the error or cancel edits..
+        /// </summary>
+        public static string validateErrorMessage {
+            get {
+                return ResourceManager.GetString("validateErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid JSON.
+        /// </summary>
+        public static string validateErrorTitle {
+            get {
+                return ResourceManager.GetString("validateErrorTitle", resourceCulture);
+            }
+        }
     }
 }
