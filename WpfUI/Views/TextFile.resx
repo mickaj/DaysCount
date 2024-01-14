@@ -126,6 +126,12 @@
   <data name="daysText" xml:space="preserve">
     <value>day/days</value>
   </data>
+  <data name="daysToText" xml:space="preserve">
+    <value> day/days to </value>
+  </data>
+  <data name="editJsonLabel" xml:space="preserve">
+    <value>Events JSON:</value>
+  </data>
   <data name="eventDateLabel" xml:space="preserve">
     <value>Date:</value>
   </data>
@@ -136,7 +142,7 @@
     <value>in</value>
   </data>
   <data name="loadErrorMessage" xml:space="preserve">
-    <value>Unable to load XML file. Please set up a new event.</value>
+    <value>Unable to load JSON file. Please set up a new event.</value>
   </data>
   <data name="loadErrorTitle" xml:space="preserve">
     <value>File load error</value>
@@ -150,11 +156,20 @@
   <data name="menuGoToWeb" xml:space="preserve">
     <value>Website</value>
   </data>
+  <data name="onSubText" xml:space="preserve">
+    <value> on </value>
+  </data>
+  <data name="onText" xml:space="preserve">
+    <value>on</value>
+  </data>
+  <data name="otherEvents" xml:space="preserve">
+    <value>Other events:</value>
+  </data>
   <data name="saveButton" xml:space="preserve">
     <value>Save</value>
   </data>
   <data name="saveErrorMessage" xml:space="preserve">
-    <value>Unable to save XML file. Updates cancelled.</value>
+    <value>Unable to save JSON file. Updates cancelled.</value>
   </data>
   <data name="saveErrorTitle" xml:space="preserve">
     <value>File save error</value>
@@ -167,5 +182,11 @@
   </data>
   <data name="todayString" xml:space="preserve">
     <value>Today</value>
+  </data>
+  <data name="validateErrorMessage" xml:space="preserve">
+    <value>Edited JSON is invalid. Please fix the error or cancel edits.</value>
+  </data>
+  <data name="validateErrorTitle" xml:space="preserve">
+    <value>Invalid JSON</value>
   </data>
 </root>

@@ -1,25 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using Newtonsoft.Json;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WpfUI.Models;
 
 namespace WpfUI
 {
     public class EventWriter : EventHandlerBase, IEventWriter
     {
-        public void Save(IEvent @event, string filePath)
+        public void Save(string jsonContent, string filePath)
         {
-            if (!File.Exists(filePath)) { File.Delete(filePath); }
-            File.WriteAllText(filePath, BuildXmlString(@event));
+            if (File.Exists(filePath)) { File.Delete(filePath); }
+            File.WriteAllText(filePath, jsonContent);
         }
 
-        private string BuildXmlString(IEvent @event)
+        public bool Validate(string jsonContent)
         {
-            return String.Format(XmlString, @event.EventDate.ToString(DateFormat), @event.EventName);
+            try
+            {
+                JsonConvert.DeserializeObject(jsonContent);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

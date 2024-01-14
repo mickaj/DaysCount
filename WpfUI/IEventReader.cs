@@ -1,10 +1,12 @@
-﻿using WpfUI.Models;
+﻿using System.Collections.Generic;
+using WpfUI.Models;
 
 namespace WpfUI
 {
     public interface IEventReader
     {
-        IEvent Read(string filePath);
-        IEvent GetTodayEvent(string todayString);
+        IEnumerable<Event> Read(string filePath, out string jsonContent);
+
+        Event GetTodayEvent(string todayString);
     }
 }

@@ -1,51 +1,35 @@
 ﻿using Caliburn.Micro;
 using System;
-using System.IO;
 using System.Windows;
-using WpfUI.Models;
 using WpfUI.Views;
 
 namespace WpfUI.ViewModels
 {
-    public class SetupViewModel : Screen, ISetupViewModel
+    public class SetupViewModel : Screen
     {
-        private IShellViewModel _shellParent;
-        private IEventWriter _eventWriter;
-        private IEvent _event;
+        private ShellViewModel _shellParent;
+        private readonly IEventWriter _eventWriter;
 
-        private string _eventNameEdits;
-        public string EventNameEdits
+        private string _jsonEdits;
+
+        public string JsonEdits
         {
-            get => _eventNameEdits;
+            get => _jsonEdits;
             set
             {
-                _eventNameEdits = value;
-                NotifyOfPropertyChange(() => EventNameEdits);
+                _jsonEdits = value;
+                NotifyOfPropertyChange(() => JsonEdits);
             }
         }
 
-        private DateTime _eventDateEdits;
-        public DateTime EventDateEdits
-        {
-            get => _eventDateEdits;
-            set
-            {
-                _eventDateEdits = value;
-                NotifyOfPropertyChange(() => EventDateEdits);
-            }
-        }
-
-        public SetupViewModel(IEventWriter eventWriter, IEvent @event)
+        public SetupViewModel(IEventWriter eventWriter)
         {
             _eventWriter = eventWriter;
-            _event = @event;
         }
 
-        public void SetShellParent(IShellViewModel parent)
+        public void SetShellParent(ShellViewModel parent)
         {
             _shellParent = parent;
-            EventNameEdits = _shellParent.Event.EventName;
-            EventDateEdits = _shellParent.Event.EventDate;
         }
 
         public void CancelEdits()
@@ -55,18 +39,23 @@ namespace WpfUI.ViewModels
 
         public void SaveEdits()
         {
+            var isValid = _eventWriter.Validate(_jsonEdits);
+            if (isValid == false)
+            {
+                MessageBox.Show(TextFile.validateErrorMessage, TextFile.validateErrorTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             try
             {
-                _shellParent.Event.EventDate = EventDateEdits;
-                _shellParent.Event.EventName = EventNameEdits;
-                _eventWriter.Save(_shellParent.Event, _shellParent.FilePath);
+                _eventWriter.Save(_jsonEdits, _shellParent.FilePath);
             }
             catch
             {
                 this.TryClose();
                 MessageBox.Show(TextFile.saveErrorMessage, TextFile.saveErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            _shellParent.LoadEvent();
+            _shellParent.LoadEvents();
             this.TryClose();
         }
     }

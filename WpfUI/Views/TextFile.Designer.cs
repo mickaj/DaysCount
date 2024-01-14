@@ -19,7 +19,7 @@ namespace WpfUI.Views {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class TextFile {
@@ -88,6 +88,24 @@ namespace WpfUI.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  day/days to .
+        /// </summary>
+        public static string daysToText {
+            get {
+                return ResourceManager.GetString("daysToText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Events JSON:.
+        /// </summary>
+        public static string editJsonLabel {
+            get {
+                return ResourceManager.GetString("editJsonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date:.
         /// </summary>
         public static string eventDateLabel {
@@ -115,7 +133,7 @@ namespace WpfUI.Views {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to load XML file. Please set up a new event..
+        ///   Looks up a localized string similar to Unable to load JSON file. Please set up a new event..
         /// </summary>
         public static string loadErrorMessage {
             get {
@@ -160,6 +178,33 @@ namespace WpfUI.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  on .
+        /// </summary>
+        public static string onSubText {
+            get {
+                return ResourceManager.GetString("onSubText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to on.
+        /// </summary>
+        public static string onText {
+            get {
+                return ResourceManager.GetString("onText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other events:.
+        /// </summary>
+        public static string otherEvents {
+            get {
+                return ResourceManager.GetString("otherEvents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string saveButton {
@@ -169,7 +214,7 @@ namespace WpfUI.Views {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to save XML file. Updates cancelled..
+        ///   Looks up a localized string similar to Unable to save JSON file. Updates cancelled..
         /// </summary>
         public static string saveErrorMessage {
             get {
@@ -210,6 +255,24 @@ namespace WpfUI.Views {
         public static string todayString {
             get {
                 return ResourceManager.GetString("todayString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edited JSON is invalid. Please fix the error or cancel edits..
+        /// </summary>
+        public static string validateErrorMessage {
+            get {
+                return ResourceManager.GetString("validateErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid JSON.
+        /// </summary>
+        public static string validateErrorTitle {
+            get {
+                return ResourceManager.GetString("validateErrorTitle", resourceCulture);
             }
         }
     }

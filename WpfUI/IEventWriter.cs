@@ -1,9 +1,12 @@
-﻿using WpfUI.Models;
+﻿using System.Collections.Generic;
+using WpfUI.Models;
 
 namespace WpfUI
 {
     public interface IEventWriter
     {
-        void Save(IEvent @event, string filePath);
+        void Save(string jsonContent, string filePath);
+
+        bool Validate(string jsonContent);
     }
 }
