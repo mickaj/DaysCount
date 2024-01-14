@@ -88,6 +88,15 @@ namespace WpfUI.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  day/days to .
+        /// </summary>
+        public static string daysToText {
+            get {
+                return ResourceManager.GetString("daysToText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date:.
         /// </summary>
         public static string eventDateLabel {
@@ -160,11 +169,29 @@ namespace WpfUI.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  on .
+        /// </summary>
+        public static string onSubText {
+            get {
+                return ResourceManager.GetString("onSubText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to on.
         /// </summary>
         public static string onText {
             get {
                 return ResourceManager.GetString("onText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other events:.
+        /// </summary>
+        public static string otherEvents {
+            get {
+                return ResourceManager.GetString("otherEvents", resourceCulture);
             }
         }
         

@@ -126,6 +126,9 @@
   <data name="daysText" xml:space="preserve">
     <value>day/days</value>
   </data>
+  <data name="daysToText" xml:space="preserve">
+    <value> day/days to </value>
+  </data>
   <data name="eventDateLabel" xml:space="preserve">
     <value>Date:</value>
   </data>
@@ -150,8 +153,14 @@
   <data name="menuGoToWeb" xml:space="preserve">
     <value>Website</value>
   </data>
+  <data name="onSubText" xml:space="preserve">
+    <value> on </value>
+  </data>
   <data name="onText" xml:space="preserve">
     <value>on</value>
+  </data>
+  <data name="otherEvents" xml:space="preserve">
+    <value>Other events:</value>
   </data>
   <data name="saveButton" xml:space="preserve">
     <value>Save</value>

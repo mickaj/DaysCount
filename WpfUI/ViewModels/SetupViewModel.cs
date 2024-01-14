@@ -43,8 +43,8 @@ namespace WpfUI.ViewModels
         public void SetShellParent(ShellViewModel parent)
         {
             _shellParent = parent;
-            EventNameEdits = _shellParent.TopEvent.EventName;
-            EventDateEdits = _shellParent.TopEvent.EventDate;
+            //EventNameEdits = _shellParent.TopEvent.EventName;
+            //EventDateEdits = _shellParent.TopEvent.EventDate;
         }
 
         public void CancelEdits()
@@ -56,9 +56,9 @@ namespace WpfUI.ViewModels
         {
             try
             {
-                _shellParent.TopEvent.EventDate = EventDateEdits;
-                _shellParent.TopEvent.EventName = EventNameEdits;
-                _eventWriter.Save(_shellParent.TopEvent, _shellParent.FilePath);
+                //_shellParent.TopEvent.EventDate = EventDateEdits;
+                //_shellParent.TopEvent.EventName = EventNameEdits;
+                //_eventWriter.Save(_shellParent.TopEvent, _shellParent.FilePath);
             }
             catch
             {

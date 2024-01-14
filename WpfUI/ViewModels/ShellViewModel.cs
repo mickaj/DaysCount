@@ -29,18 +29,13 @@ namespace WpfUI.ViewModels
                 _events = value;
                 NotifyOfPropertyChange(() => Events);
                 NotifyOfPropertyChange(() => TopEvent);
-                NotifyOfPropertyChange(() => RemainingDays);
-                NotifyOfPropertyChange(() => MinorEventsStrings);
+                NotifyOfPropertyChange(() => MinorEvents);
             }
         }
 
-        public List<string> MinorEventsStrings => _events
-            .Select(e => $"{e.EventName} {TextFile.inText} {DateTimeHelper.GetRemainingDays(e.EventDate)} {TextFile.onText} {e.EventDate:dd-MM-yyyy}")
-            .ToList();
+        public List<CalculatedEvent> MinorEvents => _events.Skip(1).Select(e => new CalculatedEvent(e, DateTimeHelper.GetRemainingDays(e.EventDate))).ToList();
 
-        public Event TopEvent => _events.First();
-
-        public int RemainingDays => DateTimeHelper.GetRemainingDays(TopEvent.EventDate);
+        public CalculatedEvent TopEvent { get; private set; }
 
         public ShellViewModel(IWindowManager windowManager, SetupViewModel setupViewModel, IEventReader eventReader)
         {
@@ -63,6 +58,9 @@ namespace WpfUI.ViewModels
                 MessageBox.Show(TextFile.loadErrorMessage, TextFile.loadErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
                 _events.Add(_eventReader.GetTodayEvent(TextFile.todayString));
             }
+
+            var first = _events.First();
+            TopEvent = new CalculatedEvent(first, DateTimeHelper.GetRemainingDays(first.EventDate));
         }
 
         public void Exit()

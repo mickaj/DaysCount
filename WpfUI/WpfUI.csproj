@@ -76,6 +76,7 @@
     <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="IEventReader.cs" />
     <Compile Include="IEventWriter.cs" />
+    <Compile Include="Models\CalculatedEvent.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="ViewModels\SetupViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
