@@ -19,21 +19,9 @@ namespace WpfUI.ViewModels
 
         public string FilePath { get; private set; }
 
-        private List<Event> _events = new List<Event>();
+        public List<Event> Events { get; private set; } = new List<Event>();
 
-        public List<Event> Events 
-        {
-            get => _events;
-            set
-            {
-                _events = value;
-                NotifyOfPropertyChange(() => Events);
-                NotifyOfPropertyChange(() => TopEvent);
-                NotifyOfPropertyChange(() => MinorEvents);
-            }
-        }
-
-        public List<CalculatedEvent> MinorEvents => _events.Skip(1).Select(e => new CalculatedEvent(e, DateTimeHelper.GetRemainingDays(e.EventDate))).ToList();
+        public List<CalculatedEvent> MinorEvents => Events.Skip(1).Select(e => new CalculatedEvent(e, DateTimeHelper.GetRemainingDays(e.EventDate))).ToList();
 
         public CalculatedEvent TopEvent { get; private set; }
 
@@ -51,16 +39,20 @@ namespace WpfUI.ViewModels
         {
             try
             {
-                _events = _eventReader.Read(FilePath).OrderBy(e => e.EventDate).ToList();
+                Events = _eventReader.Read(FilePath, out string jsonContent).OrderBy(e => e.EventDate).ToList();
+                _setupViewModel.JsonEdits = jsonContent;
             }
             catch
             {
                 MessageBox.Show(TextFile.loadErrorMessage, TextFile.loadErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
-                _events.Add(_eventReader.GetTodayEvent(TextFile.todayString));
+                Events.Clear();
+                Events.Add(_eventReader.GetTodayEvent(TextFile.todayString));
             }
 
-            var first = _events.First();
+            var first = Events.First();
             TopEvent = new CalculatedEvent(first, DateTimeHelper.GetRemainingDays(first.EventDate));
+
+            RefreshMainScreen();
         }
 
         public void Exit()
@@ -76,6 +68,13 @@ namespace WpfUI.ViewModels
         public void OpenSetup()
         {
             _windowManager.ShowDialog(_setupViewModel);
+        }
+
+        private void RefreshMainScreen()
+        {
+            NotifyOfPropertyChange(() => Events);
+            NotifyOfPropertyChange(() => TopEvent);
+            NotifyOfPropertyChange(() => MinorEvents);
         }
     }
 }

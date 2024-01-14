@@ -97,6 +97,15 @@ namespace WpfUI.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Events JSON:.
+        /// </summary>
+        public static string editJsonLabel {
+            get {
+                return ResourceManager.GetString("editJsonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date:.
         /// </summary>
         public static string eventDateLabel {

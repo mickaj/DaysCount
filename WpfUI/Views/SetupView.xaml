@@ -8,37 +8,19 @@
         Background="Gray"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False"
-        Title="{x:Static local:TextFile.setupTitleBar}" Height="158" Width="400" ResizeMode="NoResize">
-    <Grid Margin="15,15,15,0">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+        Title="{x:Static local:TextFile.setupTitleBar}" Height="300" Width="400" ResizeMode="NoResize">
+    <Grid Margin="15,0,15,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*" />
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static local:TextFile.eventNameLabel}" Margin="5" FontWeight="Bold" FontSize="18"/>
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Static local:TextFile.eventDateLabel}" Margin="5" FontWeight="Bold" FontSize="18"/>
+        <TextBlock Grid.Row="0" Text="{x:Static local:TextFile.editJsonLabel}" Margin="5" FontWeight="Bold" FontSize="18"/>
+        <TextBox Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding JsonEdits}" HorizontalAlignment="Stretch" Height="200"/>
+        
 
-        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding EventNameEdits}" HorizontalAlignment="Stretch" Height="25"/>
-        <DatePicker Grid.Row="1" Grid.Column="1" SelectedDate="{Binding Path=EventDateEdits, StringFormat='{}{0:dd-MM-yyyy}'}" HorizontalAlignment="Stretch" Height="25">
-            <DatePicker.Resources>
-                <Style TargetType="DatePickerTextBox">
-                    <Setter Property="Control.Template">
-                        <Setter.Value>
-                            <ControlTemplate>
-                                <TextBox x:Name="PART_TextBox" Text="{Binding Path=SelectedDate, StringFormat = {}{0:dd-MM-yyyy}, RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}}" />
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </DatePicker.Resources>
-        </DatePicker>
-
-        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right">
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right">
             <Button Name="SaveEdits" Content="{x:Static local:TextFile.saveButton}" Width="50" Height="25" Margin="5"/>
             <Button Name="CancelEdits" Content="{x:Static local:TextFile.cancelButton}" Width="50" Height="25" Margin="5"/>
         </StackPanel>

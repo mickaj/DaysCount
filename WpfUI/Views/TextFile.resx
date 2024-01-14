@@ -129,6 +129,9 @@
   <data name="daysToText" xml:space="preserve">
     <value> day/days to </value>
   </data>
+  <data name="editJsonLabel" xml:space="preserve">
+    <value>Events JSON:</value>
+  </data>
   <data name="eventDateLabel" xml:space="preserve">
     <value>Date:</value>
   </data>

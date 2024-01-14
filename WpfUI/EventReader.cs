@@ -8,12 +8,13 @@ namespace WpfUI
 {
     public class EventReader : EventHandlerBase, IEventReader
     {
-        public IEnumerable<Event> Read(string filePath)
+        public IEnumerable<Event> Read(string filePath, out string jsonContent)
         {
             if (!File.Exists(filePath)) { throw new FileNotFoundException(FILE_DOES_NOT_EXIST_EXCEPTION_MESSAGE); }
             else
             {
-                return Convert(GetContentString(filePath));
+                jsonContent = GetContentString(filePath);
+                return Convert(jsonContent);
             }
         }
 

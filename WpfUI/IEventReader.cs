@@ -5,7 +5,7 @@ namespace WpfUI
 {
     public interface IEventReader
     {
-        IEnumerable<Event> Read(string filePath);
+        IEnumerable<Event> Read(string filePath, out string jsonContent);
 
         Event GetTodayEvent(string todayString);
     }

@@ -1,7 +1,6 @@
 ﻿using Caliburn.Micro;
 using System;
 using System.Windows;
-using WpfUI.Models;
 using WpfUI.Views;
 
 namespace WpfUI.ViewModels
@@ -10,41 +9,29 @@ namespace WpfUI.ViewModels
     {
         private ShellViewModel _shellParent;
         private readonly IEventWriter _eventWriter;
-        private readonly Event _event;
+        private readonly IEventReader _eventReader;
 
-        private string _eventNameEdits;
-        public string EventNameEdits
+        private string _jsonEdits;
+
+        public string JsonEdits
         {
-            get => _eventNameEdits;
+            get => _jsonEdits;
             set
             {
-                _eventNameEdits = value;
-                NotifyOfPropertyChange(() => EventNameEdits);
+                _jsonEdits = value;
+                NotifyOfPropertyChange(() => JsonEdits);
             }
         }
 
-        private DateTime _eventDateEdits;
-        public DateTime EventDateEdits
-        {
-            get => _eventDateEdits;
-            set
-            {
-                _eventDateEdits = value;
-                NotifyOfPropertyChange(() => EventDateEdits);
-            }
-        }
-
-        public SetupViewModel(IEventWriter eventWriter, Event @event)
+        public SetupViewModel(IEventWriter eventWriter, IEventReader eventReader)
         {
             _eventWriter = eventWriter;
-            _event = @event;
+            _eventReader = eventReader;
         }
 
         public void SetShellParent(ShellViewModel parent)
         {
             _shellParent = parent;
-            //EventNameEdits = _shellParent.TopEvent.EventName;
-            //EventDateEdits = _shellParent.TopEvent.EventDate;
         }
 
         public void CancelEdits()
@@ -56,9 +43,7 @@ namespace WpfUI.ViewModels
         {
             try
             {
-                //_shellParent.TopEvent.EventDate = EventDateEdits;
-                //_shellParent.TopEvent.EventName = EventNameEdits;
-                //_eventWriter.Save(_shellParent.TopEvent, _shellParent.FilePath);
+                _eventWriter.Save(_jsonEdits, _shellParent.FilePath);
             }
             catch
             {
